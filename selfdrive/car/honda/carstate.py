@@ -31,7 +31,7 @@ def parse_gear_shifter(can_gear_shifter, car_fingerprint):
       return "sport"
     elif can_gear_shifter == 0x20:
       return "low"
-    
+
   elif car_fingerprint in (CAR.PILOT):
      if can_gear_shifter == 0x8:
        return "reverse"
@@ -41,6 +41,16 @@ def parse_gear_shifter(can_gear_shifter, car_fingerprint):
        return "drive"
      elif can_gear_shifter == 0x2:
         return "sport"
+
+  elif car_fingerprint in (CAR.CLARITY):
+    if can_gear_shifter == 0x0:
+      return "park"
+    if can_gear_shifter == 0x2:
+      return "reverse"
+    if can_gear_shifter == 0x3:
+      return "neutral"
+    if can_gear_shifter == 0x4:
+      return "drive"
 
   return "unknown"
 
@@ -137,6 +147,8 @@ def get_can_signals(CP):
     dbc_f = 'honda_pilot_touring_2017_can_generated.dbc'
     signals += [("MAIN_ON", "SCM_BUTTONS", 0),
                 ("CAR_GAS", "GAS_PEDAL_2", 0)]
+  elif CP.carFingerprint == CAR.CLARITY:
+    dbc_f = 'honda_clarity_hybrid_2018_can.dbc'
 
   # add gas interceptor reading if we are using it
   if CP.enableGas:
@@ -243,7 +255,7 @@ class CarState(object):
     self.left_blinker_on = cp.vl["SCM_FEEDBACK"]['LEFT_BLINKER']
     self.right_blinker_on = cp.vl["SCM_FEEDBACK"]['RIGHT_BLINKER']
 
-    if self.CP.carFingerprint in (CAR.CIVIC, CAR.ODYSSEY):
+    if self.CP.carFingerprint in (CAR.CIVIC, CAR.ODYSSEY, CAR.CLARITY):
       self.park_brake = cp.vl["EPB_STATUS"]['EPB_STATE'] != 0
       self.brake_hold = cp.vl["VSA_STATUS"]['BRAKE_HOLD_ACTIVE']
       self.main_on = cp.vl["SCM_FEEDBACK"]['MAIN_ON']

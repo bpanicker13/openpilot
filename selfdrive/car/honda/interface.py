@@ -202,7 +202,7 @@ class CarInterface(object):
       ret.longitudinalKpBP = [0., 5., 35.]
       ret.longitudinalKpV = [1.2, 0.8, 0.5]
       ret.longitudinalKiBP = [0., 35.]
-      ret.longitudinalKiV = [0.18, 0.12]  
+      ret.longitudinalKiV = [0.18, 0.12]
     elif candidate == CAR.ODYSSEY:
       stop_and_go = False
       ret.mass = 4354./2.205 + std_cargo
@@ -222,6 +222,18 @@ class CarInterface(object):
       ret.centerToFront = ret.wheelbase * 0.41
       ret.steerRatio = 16.0
       ret.steerKp, ret.steerKi = 0.38, 0.11
+
+      ret.longitudinalKpBP = [0., 5., 35.]
+      ret.longitudinalKpV = [1.2, 0.8, 0.5]
+      ret.longitudinalKiBP = [0., 35.]
+      ret.longitudinalKiV = [0.18, 0.12]
+    elif candidate == CAR.CLARITY:
+      stop_and_go = True
+      ret.mass = 4134./2.205 + std_cargo
+      ret.wheelbase = 2.75
+      ret.centerToFront = ret.wheelbase * 0.38
+      ret.steerRatio = 13.0 #Using Civic Values for now
+      ret.steerKp, ret.steerKi = 0.4, 0.12 #Using Civic Values for now
 
       ret.longitudinalKpBP = [0., 5., 35.]
       ret.longitudinalKpV = [1.2, 0.8, 0.5]
